@@ -2,18 +2,11 @@ import dotenv from "dotenv";
 import { z } from "zod";
 
 dotenv.config();
-
+//fgg
 const envSchema = z.object({
   PORT: z.string().default("5000").transform((val) => parseInt(val, 10)),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
-  MONGO_URI: z
-    .string()
-    .trim()
-    .default(
-      process.env.MONGODB_URI ||
-        process.env.MONGO_URI ||
-        "mongodb+srv://USERNAME:PASSWORD@CLUSTER_HOST/study_abroad_platform?retryWrites=true&w=majority"
-    ),
+  MONGO_URI: z.string().default("mongodb+srv://1stproject:DEdu0kGyk62299Ft@cluster0.xlk7a.mongodb.net/study_abroad_platform"),
   JWT_SECRET: z
     .string()
     .min(16, "JWT_SECRET should be at least 16 characters long")
@@ -24,8 +17,8 @@ const envSchema = z.object({
     .min(16, "JWT_REFRESH_SECRET should be at least 16 characters long")
     .default("super_secret_refresh_jwt_key_study_abroad_platform_2026"),
   JWT_REFRESH_EXPIRES_IN: z.string().default("30d"),
-  CORS_ORIGIN: z.string().default("http://localhost:3000,http://localhost:5173"),
-  CLIENT_URL: z.string().trim().default("http://localhost:3000"),
+  CORS_ORIGIN: z.string().default("http://localhost:3000,http://localhost:5173, https://study-platform-website.vercel.app"),
+  CLIENT_URL: z.string().trim().default("http://localhost:3000, https://study-platform-website.vercel.app"),
   EMAIL_USER: z.string().trim().optional().default(""),
   EMAIL_PASSWORD: z.string().trim().optional().default(""),
   SMTP_HOST: z.string().trim().optional().default(""),
