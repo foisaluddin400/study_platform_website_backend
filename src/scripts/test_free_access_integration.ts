@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000/api/v1";
+const API_BASE = "https://study-platform-website-backend.vercel.app/api/v1";
 
 async function post(endpoint: string, body: any, token?: string) {
   const headers: Record<string, string> = { "Content-Type": "application/json" };

@@ -61,7 +61,7 @@ const run = async () => {
     role: user?.role || "AGENCY_ADMIN",
   });
 
-  const response = await fetch("http://localhost:5000/api/v1/applications", {
+  const response = await fetch("https://study-platform-website-backend.vercel.app/api/v1/applications", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

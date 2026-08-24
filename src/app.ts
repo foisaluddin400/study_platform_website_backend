@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import path from "path";
 import { env } from "./config/env";
+import { connectDB } from "./config/db";
 import { sendSuccess } from "./utils/apiResponse";
 import { notFoundHandler } from "./middlewares/notFoundHandler";
 import { errorHandler } from "./middlewares/errorHandler";
@@ -69,6 +70,17 @@ app.use(cookieParser());
 
 // Static File Serving for Uploaded Assets (Logos, Avatars, Documents)
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
+// Database Connection Middleware (Guarantees active MongoDB Atlas connection on Vercel serverless functions)
+app.use(async (_req: Request, _res: Response, next: import("express").NextFunction) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error("❌ MongoDB connection error in request middleware:", error);
+    next(error);
+  }
+});
 
 // Health Check Endpoints
 const getHealthStatus = () => {

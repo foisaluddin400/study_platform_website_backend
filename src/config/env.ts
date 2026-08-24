@@ -6,7 +6,14 @@ dotenv.config();
 const envSchema = z.object({
   PORT: z.string().default("5000").transform((val) => parseInt(val, 10)),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
-  MONGO_URI: z.string().default("mongodb://127.0.0.1:27017/study_abroad_platform"),
+  MONGO_URI: z
+    .string()
+    .trim()
+    .default(
+      process.env.MONGODB_URI ||
+        process.env.MONGO_URI ||
+        "mongodb+srv://USERNAME:PASSWORD@CLUSTER_HOST/study_abroad_platform?retryWrites=true&w=majority"
+    ),
   JWT_SECRET: z
     .string()
     .min(16, "JWT_SECRET should be at least 16 characters long")
